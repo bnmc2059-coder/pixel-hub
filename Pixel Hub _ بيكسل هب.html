@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Hub | بيكسل هب</title>
+<meta name="description" content="Pixel Hub مجتمع يجمع الذكاء الاصطناعي والهاردوير والبرمجة. انضم لسيرفر ماينكرافت والديسكورد.">
+<meta name="theme-color" content="#0D0F12">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230D0F12'/><rect x='3' y='3' width='4' height='4' fill='%2300F0FF'/><rect x='9' y='3' width='4' height='4' fill='%23FF0080'/><rect x='3' y='9' width='4' height='4' fill='%237928CA'/><rect x='9' y='9' width='4' height='4' fill='%230072FF'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0D0F12;
+  --bg-deep:#090A0F;
+  --cyan:#00F0FF;
+  --blue:#0072FF;
+  --violet:#7928CA;
+  --pink:#FF0080;
+  --text:#FFFFFF;
+  --muted:#A9B0BD;
+  --glass:rgba(255,255,255,.04);
+  --glass-border:rgba(255,255,255,.10);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body::before{ /* soft color light */
+  content:"";position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(60% 50% at 80% 0%, rgba(121,40,202,.28), transparent 70%),
+    radial-gradient(50% 45% at 10% 15%, rgba(0,114,255,.22), transparent 70%),
+    linear-gradient(180deg, var(--bg), var(--bg-deep));
+}
+body::after{ /* tech grid */
+  content:"";position:fixed;inset:0;z-index:-2;
+  background-image:
+    linear-gradient(rgba(0,240,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,.06) 1px, transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 100%);
+}
+#pixels{position:fixed;inset:0;z-index:-1;pointer-events:none}
+
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+
+.wrap{width:min(1120px,92%);margin-inline:auto}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:clamp(72px,14vh,140px) 0 72px;
+  text-align:center;
+}
+.logo{
+  font-family:"Press Start 2P",monospace;
+  font-size:clamp(1.5rem,7.2vw,4.2rem);
+  line-height:1.3;
+  letter-spacing:.02em;
+  direction:ltr;
+  display:inline-block;
+  position:relative;
+  color:var(--text);
+  text-shadow:
+    0 0 8px rgba(0,240,255,.9),
+    0 0 28px rgba(0,240,255,.55),
+    0 0 70px rgba(0,114,255,.5);
+}
+.logo::before{ /* neon light behind the logo */
+  content:"";position:absolute;inset:-30% -12%;z-index:-1;
+  background:radial-gradient(closest-side, rgba(0,240,255,.28), rgba(121,40,202,.18) 55%, transparent 75%);
+  filter:blur(18px);
+  animation:breathe 4.5s ease-in-out infinite;
+}
+.logo .hub{
+  color:var(--pink);
+  text-shadow:0 0 8px rgba(255,0,128,.9),0 0 28px rgba(255,0,128,.5),0 0 70px rgba(121,40,202,.6);
+}
+@keyframes breathe{50%{opacity:.55;transform:scale(1.06)}}
+
+.ar-name{
+  margin-top:22px;
+  font-size:clamp(1.3rem,3.4vw,2rem);
+  font-weight:700;
+}
+.tagline{
+  margin:14px auto 0;
+  max-width:60ch;
+  color:var(--muted);
+  font-size:clamp(1rem,2.2vw,1.2rem);
+}
+.pillars{
+  margin-top:26px;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+}
+.pillar{
+  padding:6px 16px;border-radius:999px;
+  border:1px solid var(--glass-border);
+  background:var(--glass);
+  font-size:.95rem;font-weight:500;
+}
+.pillar:nth-child(1){border-color:rgba(0,240,255,.45)}
+.pillar:nth-child(2){border-color:rgba(121,40,202,.7)}
+.pillar:nth-child(3){border-color:rgba(255,0,128,.5)}
+
+.actions{
+  margin-top:40px;
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
+}
+.btn{
+  font-family:inherit;font-size:1.05rem;font-weight:600;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:14px;
+  border:1px solid transparent;
+  cursor:pointer;text-decoration:none;color:#fff;
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn svg{width:20px;height:20px;flex:none}
+
+.btn-ip{
+  background:rgba(0,240,255,.07);
+  border-color:rgba(0,240,255,.7);
+  color:var(--cyan);
+  box-shadow:0 0 18px rgba(0,240,255,.25), inset 0 0 14px rgba(0,240,255,.08);
+}
+.btn-ip:hover{box-shadow:0 0 34px rgba(0,240,255,.5), inset 0 0 18px rgba(0,240,255,.15)}
+.btn-ip{flex-wrap:wrap;justify-content:center}
+.btn-ip .ip{font-family:"Press Start 2P",monospace;font-size:.62rem;direction:ltr;color:#fff;opacity:.9}
+
+.btn-discord{
+  background:linear-gradient(135deg,#FF7A18 0%, var(--pink) 50%, var(--violet) 100%);
+  box-shadow:0 0 24px rgba(255,0,128,.35);
+}
+.btn-discord:hover{box-shadow:0 0 42px rgba(255,0,128,.6),0 0 60px rgba(121,40,202,.4)}
+
+
+/* ---------- Members ---------- */
+section{padding:56px 0}
+.sec-head{
+  display:flex;flex-wrap:wrap;gap:16px;
+  align-items:center;justify-content:space-between;
+  margin-bottom:28px;
+}
+.sec-head h2{font-size:clamp(1.5rem,3.6vw,2.1rem);font-weight:700}
+.sec-head p{color:var(--muted);font-size:.98rem;margin-top:2px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:20px;
+}
+.grid.admins{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+.card{
+  position:relative;
+  padding:26px 20px 22px;
+  border-radius:var(--radius);
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  text-align:center;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, border-color .3s ease;
+}
+.card:hover{transform:translateY(-6px) scale(1.04)}
+
+.avatar{
+  width:64px;height:64px;margin:0 auto 14px;
+  display:grid;place-items:center;
+  font-size:1.7rem;font-weight:700;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--violet),var(--pink));
+  box-shadow:0 0 18px rgba(121,40,202,.55);
+  clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px));
+  border-radius:0;
+}
+.card h3{font-size:1.2rem;font-weight:600;word-break:break-word}
+.role{color:var(--muted);font-size:.92rem;margin-top:2px}
+
+/* regular & new members: violet glow */
+.card.member:hover{
+  border-color:rgba(255,0,128,.6);
+  box-shadow:0 0 30px rgba(121,40,202,.45), 0 0 60px rgba(255,0,128,.18);
+}
+
+/* admins: electric blue */
+.card.admin{
+  border:1.5px solid var(--cyan);
+  background:linear-gradient(180deg,rgba(0,240,255,.09),rgba(0,114,255,.04));
+  box-shadow:0 0 22px rgba(0,240,255,.28), inset 0 0 22px rgba(0,240,255,.07);
+}
+.card.admin:hover{box-shadow:0 0 44px rgba(0,240,255,.6), inset 0 0 26px rgba(0,240,255,.14)}
+.card.admin .avatar{
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  color:#04121a;
+  box-shadow:0 0 22px rgba(0,240,255,.7);
+}
+.badge{
+  position:absolute;top:12px;inset-inline-start:12px;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:3px 10px;border-radius:999px;
+  font-size:.78rem;font-weight:700;
+  color:#04121a;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  box-shadow:0 0 14px rgba(0,240,255,.6);
+  direction:ltr;
+}
+.badge svg{width:12px;height:12px}
+
+
+.subhead{margin:40px 0 18px;font-size:1.15rem;font-weight:600;color:var(--muted)}
+
+/* ---------- Toast ---------- */
+#toast{
+  position:fixed;left:50%;bottom:32px;z-index:50;
+  transform:translate(-50%,30px);opacity:0;pointer-events:none;
+  display:flex;align-items:center;gap:10px;
+  padding:12px 22px;border-radius:14px;
+  background:rgba(10,12,16,.92);
+  border:1px solid var(--cyan);
+  box-shadow:0 0 28px rgba(0,240,255,.4);
+  font-weight:600;
+  transition:opacity .3s ease, transform .3s ease;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast svg{width:20px;height:20px;color:var(--cyan);flex:none}
+
+footer{
+  padding:36px 0 48px;text-align:center;color:var(--muted);font-size:.9rem;
+  border-top:1px solid var(--glass-border);margin-top:40px;
+}
+
+@media (max-width:520px){
+  .btn{width:100%;justify-content:center}
+  .actions{flex-direction:column;align-items:stretch}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+
+<body>
+<canvas id="pixels" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <div class="wrap">
+    <h1 class="logo" aria-label="Pixel Hub">PIXEL <span class="hub">HUB</span></h1>
+    <p class="ar-name">بيكسل هب</p>
+    <p class="tagline">مجتمع لصنّاع التقنية: نجرّب الذكاء الاصطناعي، نبني الهاردوير، ونكتب الكود معاً، ونلعب ماينكرافت بين كل مشروع ومشروع.</p>
+
+    <div class="pillars">
+      <span class="pillar">ذكاء اصطناعي</span>
+      <span class="pillar">هاردوير</span>
+      <span class="pillar">برمجة</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-ip" id="copyIp" type="button" aria-label="نسخ عنوان سيرفر ماينكرافت">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        انسخ IP ماينكرافت
+        <span class="ip" id="ipLabel"></span>
+      </button>
+
+      <a class="btn btn-discord" id="discordLink" href="#" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        انضم للديسكورد
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="members" class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>أعضاء بيكسل هب</h2>
+        <p id="count"></p>
+      </div>
+    </div>
+
+    <h3 class="subhead" style="margin-top:0">الإدارة</h3>
+    <div class="grid admins" id="adminGrid"></div>
+
+    <h3 class="subhead">الأعضاء</h3>
+    <div class="grid" id="memberGrid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Pixel Hub &copy; <span id="year"></span></div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+  <span id="toastText"></span>
+</div>
+
+<script>
+/* ============ الإعدادات: عدّل هذين السطرين فقط ============ */
+const CONFIG = {
+  MC_IP: "pixel0hub.aternos.me:16782", // عنوان سيرفر ماينكرافت
+  DISCORD_URL: "https://discord.gg/g5QKd9jWb" // رابط دعوة الديسكورد
+};
+
+const ADMINS = ["عبد الله", "وليد"];
+const CORE_MEMBERS = ["رياض", "بدر", "عزوز", "ياسر", "مازن", "رويد", "يوسف", "معاذ"];
+
+/* ============ مساعدات ============ */
+const $ = (id) => document.getElementById(id);
+
+let toastTimer;
+function toast(msg){
+  $("toastText").textContent = msg;
+  const t = $("toast");
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+
+/* ============ بناء الكروت ============ */
+function makeCard({name, role, type, id}){
+  const card = document.createElement("article");
+  card.className = "card " + (type === "admin" ? "admin" : "member");
+
+  if(type === "admin"){
+    const b = document.createElement("span");
+    b.className = "badge";
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .6-5.3 4.7 1.6 7.2L12 17.8 5.700 21.500l1.600-7.200L2 9.600 9 9z"/></svg>';
+    b.append(document.createTextNode(role));
+    card.appendChild(b);
+  }
+  const av = document.createElement("div");
+  av.className = "avatar";
+  av.textContent = Array.from(name)[0] || "?";
+
+  const h = document.createElement("h3");
+  h.textContent = name;
+
+  card.append(av, h);
+
+  if(type !== "admin"){
+    const r = document.createElement("p");
+    r.className = "role";
+    r.textContent = role;
+    card.appendChild(r);
+  }
+  return card;
+}
+
+function render(){
+  const adminGrid = $("adminGrid"), memberGrid = $("memberGrid");
+  adminGrid.replaceChildren();
+  memberGrid.replaceChildren();
+
+  ADMINS.forEach(n => adminGrid.appendChild(makeCard({name:n, role:"Admin / Founder", type:"admin"})));
+  CORE_MEMBERS.forEach(n => memberGrid.appendChild(makeCard({name:n, role:"عضو", type:"member"})));
+
+
+  $("count").textContent = (ADMINS.length + CORE_MEMBERS.length) + " عضو في المجتمع";
+}
+
+/* ============ نسخ IP ============ */
+$("ipLabel").textContent = CONFIG.MC_IP;
+$("copyIp").addEventListener("click", async () => {
+  try{
+    await navigator.clipboard.writeText(CONFIG.MC_IP);
+  }catch(e){
+    const ta = document.createElement("textarea");
+    ta.value = CONFIG.MC_IP;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand("copy"); }catch(_){}
+    ta.remove();
+  }
+  toast("تم النسخ بنجاح!");
+});
+
+$("discordLink").href = CONFIG.DISCORD_URL;
+
+/* ============ خلفية البكسلات التفاعلية ============ */
+(function(){
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce) return;
+
+  const canvas = $("pixels"), ctx = canvas.getContext("2d");
+  const CELL = 40;
+  const cells = new Map();
+  let w, h, running = false;
+  const colors = ["0,240,255","0,114,255","121,40,202","255,0,128"];
+
+  function resize(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize();
+  addEventListener("resize", resize);
+
+  function lightUp(x, y){
+    const cx = Math.floor(x / CELL), cy = Math.floor(y / CELL);
+    for(let dx=-1; dx<=1; dx++){
+      for(let dy=-1; dy<=1; dy++){
+        const key = (cx+dx) + "," + (cy+dy);
+        const dist = Math.abs(dx) + Math.abs(dy);
+        const val = dist === 0 ? 1 : dist === 1 ? .45 : .2;
+        const prev = cells.get(key);
+        if(!prev || prev.a < val){
+          cells.set(key, {a: val, c: prev ? prev.c : colors[Math.floor(Math.random()*colors.length)]});
+        }
+      }
+    }
+    if(!running){ running = true; requestAnimationFrame(tick); }
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const [key, cell] of cells){
+      const [gx, gy] = key.split(",").map(Number);
+      ctx.fillStyle = "rgba(" + cell.c + "," + (cell.a * .35) + ")";
+      ctx.fillRect(gx*CELL+2, gy*CELL+2, CELL-3, CELL-3);
+      cell.a -= .018;
+      if(cell.a <= 0) cells.delete(key);
+    }
+    if(cells.size) requestAnimationFrame(tick); else running = false;
+  }
+
+  addEventListener("pointermove", (e) => lightUp(e.clientX, e.clientY), {passive:true});
+})();
+
+$("year").textContent = new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
